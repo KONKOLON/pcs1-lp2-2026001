@@ -1,6 +1,6 @@
 class Pasajero:
     RUTAS_VALIDAS=["Iquitos-Nauta", "Iquitos-Yurimaguas", "Iquitos-Pucallpa"]
-    PESO_lIBRE = 15.0
+    PESO_LIBRE = 15.0
     PESO_MAXIMO = 25.0
 
     def __init__(self, nombre_completo, ruta, peso_equipaje, dni, edad):
@@ -76,5 +76,39 @@ class Pasajero:
             "Iquitos-Yurimaguas": 70.0,
             "Iquitos-Pucallpa": 60.0
         }
-        
-        
+        return tarifas[self._ruta]
+    
+
+    @property
+    def recargo_equipaje(self):
+        exceso = max(0, self._peso_equipaje - self.PESO_LIBRE)
+        return exceso * 2
+    
+    @property
+    def tarifa_total(self):
+        base = self.tarifa_base
+        if self.categoria_edad in ["Niño/a", "Adulto/a mayor"]:
+            base *= 0.5
+        return base + self.recargo_equipaje
+    
+    
+    def __str__(self):
+        return (f"Pasajero: {self.nombre_completo}\n"
+                f"Ruta: {self.ruta}\n"
+                f"Peso del equipaje: {self.peso_equipaje} kg\n"
+                f"DNI: {self.dni}\n"
+                f"Edad: {self.edad} años\n"
+                f"Categoría de edad: {self.categoria_edad}\n"
+                f"Tarifa base: ${self.tarifa_base:.2f}\n"
+                f"Recargo por equipaje: ${self.recargo_equipaje:.2f}\n"
+                f"Tarifa total a pagar: ${self.tarifa_total:.2f}")
+    
+if __name__ == "__main__":
+        p1 = Pasajero("juan perez", "Iquitos-Nauta", 10, "12345678", 20)
+        print(p1)
+
+        p2 = Pasajero("maria lopez", "Iquitos-Pucallpa", 14, "87654321", 65)
+        print(p2)
+
+        p3 = Pasajero("carlos ramirez", "Iquitos-Yurimaguas", 25, "11223344", 30)
+        print(p3)
