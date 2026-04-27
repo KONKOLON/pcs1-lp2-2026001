@@ -1,5 +1,5 @@
 class Pasajero:
-    RUTAS_VALIDAS=["Iquitos-Nauta", "Iquitos-Yurimaguas", "Iquitos-Requena", "Iquitos-Contamana"]
+    RUTAS_VALIDAS=["Iquitos-Nauta", "Iquitos-Yurimaguas", "Iquitos-Pucallpa"]
     PESO_lIBRE = 15.0
     PESO_MAXIMO = 25.0
 
@@ -55,4 +55,26 @@ class Pasajero:
             raise ValueError("El nombre completo no puede estar vacío.")
         self._nombre_completo = value.strip()
 
+
     
+
+    @property
+    def categoria_edad(self):
+        if self._edad < 12:
+            return "Niño/a"
+        if self._edad <=17:
+            return "Adolescente"
+        if self._edad <=59:
+            return "Adulto/a"
+        else:
+            return "Adulto/a mayor"
+        
+    @property
+    def tarifa_base(self):
+        tarifas = {
+            "Iquitos-Nauta": 50.0,
+            "Iquitos-Yurimaguas": 70.0,
+            "Iquitos-Pucallpa": 60.0
+        }
+        
+        
